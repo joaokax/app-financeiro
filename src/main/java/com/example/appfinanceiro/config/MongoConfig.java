@@ -1,4 +1,4 @@
-package com.example.appfinanceiro.mongodb;
+package com.example.appfinanceiro.config;
 
 import com.mongodb.client.MongoClient;
 import org.springframework.context.annotation.Bean;
