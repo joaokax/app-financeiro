@@ -1,39 +1,34 @@
 package com.example.appfinanceiro.details;
 
+import com.example.appfinanceiro.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
 public class UserDetailsImpl implements UserDetails {
-    private Long id;
-    private String name;
-    private String email;
-    private String password;
-    private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String name, String email, String password,
-                           Collection<? extends GrantedAuthority> authorities) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.authorities = authorities;
+    private final Optional<User> user;
+
+    public UserDetailsImpl(Optional<User> user) {
+        this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+        return new ArrayList<>();
     }
 
     @Override
     public String getPassword() {
-        return password;
+        return user.orElse(new User()).getPassword();
     }
 
     @Override
     public String getUsername() {
-        return email;
+        return user.orElse(new User()).getEmail();
     }
 
     @Override
@@ -56,11 +51,4 @@ public class UserDetailsImpl implements UserDetails {
         return true;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
 }

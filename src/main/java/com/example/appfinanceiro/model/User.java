@@ -1,6 +1,7 @@
 package com.example.appfinanceiro.model;
 
 //import lombok.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -18,6 +19,7 @@ public class User {
 
     private String email;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
 //    public User(String id, String name, String email, String password) {
@@ -33,9 +35,8 @@ public class User {
         this.password = password;
     }
 
-//    public User() {
-//
-//    }
+    public User() {
+    }
 
     public String getId() {
         return id;
