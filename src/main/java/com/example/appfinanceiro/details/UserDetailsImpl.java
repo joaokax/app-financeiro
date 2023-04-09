@@ -3,11 +3,12 @@ package com.example.appfinanceiro.details;
 import com.example.appfinanceiro.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
-
+@Component
 public class UserDetailsImpl implements UserDetails {
 
     private final Optional<User> user;
