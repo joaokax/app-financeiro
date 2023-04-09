@@ -14,9 +14,4 @@ public class AppFinanceiroApplication {
         System.out.println("Documentation :  http://localhost:8080/swagger-ui/index.html#");
     }
 
-//    @Bean
-//    public BCryptPasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-
 }
