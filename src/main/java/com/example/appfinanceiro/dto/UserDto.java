@@ -1,2 +1,15 @@
-package com.example.appfinanceiro.dto;public class UserDto {
+package com.example.appfinanceiro.dto;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserDto {
+    private String id;
+    private String name;
+    private String email;
 }

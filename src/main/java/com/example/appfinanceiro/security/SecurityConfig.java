@@ -40,8 +40,8 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/**", "/api-docs").permitAll()
-                .anyRequest().authenticated()
+                .requestMatchers("/auth/**", "/swagger-ui/**").permitAll()
+                .anyRequest().permitAll()
                 .and()
                 .httpBasic();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,19 +39,21 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponseDTO> authenticateUser(@Valid @RequestBody LoginDto loginDto) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginDto loginDto) {
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginDto.getEmail(),
-                        loginDto.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String token = jwtGenerator.generateJwtToken(authentication);
-        return new ResponseEntity<>(new AuthResponseDTO(token), HttpStatus.OK);
-
-
-//        AuthResponseDTO authResponseDTO = new AuthResponseDTO(token);
-//        authResponseDTO.setIdUser(userRepository.findByEmail(loginDto.getEmail()).getIdUser());
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            loginDto.getEmail(),
+                            loginDto.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String token = jwtGenerator.generateJwtToken(authentication);
+            return new ResponseEntity<>(new AuthResponseDTO(token), HttpStatus.OK);
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário ou senha inválido");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado");
+        }
 
     }
 

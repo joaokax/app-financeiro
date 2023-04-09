@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+//@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/users")
 @Tag(name = "Users", description = "User endpoints")
 public class UserController {
@@ -31,7 +32,7 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "Successful operation"),
             @ApiResponse(responseCode = "404", description = "Users were not found")
     })
-    @GetMapping
+    @GetMapping("/all")
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
