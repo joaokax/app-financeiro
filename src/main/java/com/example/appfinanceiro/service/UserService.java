@@ -17,13 +17,10 @@ public class UserService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    public void saveUser(User user) {
+    public User saveUser(User user) {
         String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
-//    public User findByEmail(String email) {
-//        return userRepository.findByEmail(email);
-//    }
 }
